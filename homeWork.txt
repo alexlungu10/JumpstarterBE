@@ -1,0 +1,3 @@
+move files to folders by their Spring component type
+add Loggers and messages . (replace System.out.println(..)  with a logger
+add tests by layers: MVC / Service / Repository / Integration
