@@ -6,8 +6,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.util.comparator.Comparators;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 /**
@@ -25,7 +28,8 @@ public class ItemService {
     @LogMetricsInfo
     List<Item> getItems() {
         LOGGER.info("get items ");
-        return  (List) itemRepository.findAll();
+        List<Item> itemRepositoryAll = (List<Item>) itemRepository.findAll();
+        return itemRepositoryAll.stream().sorted(Comparator.comparing(Item::getId).reversed()).collect(Collectors.toList());
     }
 
     @LogMetricsInfo
@@ -37,9 +41,9 @@ public class ItemService {
     @LogMetricsInfo
     public boolean delete(long id) {
         LOGGER.info("delete item : {}", id);
-        try{
+        try {
             itemRepository.deleteById(id);
-        }catch(EmptyResultDataAccessException e){
+        } catch (EmptyResultDataAccessException e) {
             System.out.println("Data not found");
             return false;
         }

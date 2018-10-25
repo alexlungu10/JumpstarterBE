@@ -13,19 +13,20 @@ public class CompanyController {
 
     public static Logger LOGGER = LoggerFactory.getLogger(CompanyController.class);
 
-
+    @CrossOrigin
     @RequestMapping(path = "/postItem", method = RequestMethod.POST)
     public Item postItem(@RequestBody Item item) {
         Item savedItem = itemService.save(item);
         return savedItem;
     }
 
+    @CrossOrigin
     @RequestMapping(path = "/getItems", method = RequestMethod.GET)
     public Iterable<Item> getItems() {
         return itemService.getItems();
 
     }
-
+    @CrossOrigin
     @RequestMapping(path = "/putItem", method = RequestMethod.PUT)
     public Item putItem(@RequestBody Item item) {
 
@@ -33,7 +34,8 @@ public class CompanyController {
         Item savedItem = itemService.save(item);
         return savedItem;
     }
-
+    
+    @CrossOrigin
     @RequestMapping(path = "/deleteItem", method = RequestMethod.DELETE)
     public boolean deleteItem(@RequestParam(value = "id") String id) {
         return itemService.delete(Long.valueOf(id));
